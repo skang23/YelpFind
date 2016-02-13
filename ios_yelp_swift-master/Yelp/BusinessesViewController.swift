@@ -149,6 +149,19 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         cell.business = filteredBusinesses[indexPath.row]
         return cell
     }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "toMap" {
+            let nextScene =  segue.destinationViewController as! MapViewController
+            // Pass the selected object to the new view controller.
+            if let indexPath = self.tableView.indexPathForSelectedRow
+            {
+                let business = self.filteredBusinesses[indexPath.row]
+                nextScene.lat = business.lat
+                nextScene.long = business.lon
+                nextScene.name = business.name
+            }
+        }
+    }
 
     /*
     // MARK: - Navigation
